@@ -3,12 +3,25 @@ server:
 
 spring:
   application:
-    name: courier-ms
+    name: ms-courier
+
   datasource:
     url: jdbc:postgresql://localhost:5432/courier_db
     username: postgres
     password:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password:
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+

@@ -3,6 +3,7 @@ package com.ali.mscourier.mapper;
 import com.ali.mscourier.dto.CourierResponseDto;
 import com.ali.mscourier.entity.Courier;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.Mapping;
 
 @Component
 public class CourierMapper {
