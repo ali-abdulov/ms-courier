@@ -1,5 +1,6 @@
 package com.ali.mscourier.entity;
 
+import com.ali.mscourier.enums.VehicleType;
 import com.ali.mscourier.enums.CourierStatus;
 import com.ali.mscourier.enums.Gender;
 import jakarta.persistence.*;
@@ -24,7 +25,7 @@ public class Courier {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, unique = true, length = 7)
+    @Column(unique = true, length = 7)
     private String finCode;
 
     @Enumerated(EnumType.STRING)
@@ -39,6 +40,9 @@ public class Courier {
     @Column(nullable = false)
     private CourierStatus status;
 
+    @Column(unique = true, length = 100)
+    private String activeOrderId;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -52,4 +56,12 @@ public class Courier {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "vehicle_type", length = 30)
+    private VehicleType vehicleType;
+
+    @Column(nullable = false)
+    private boolean deleted;
+
 }

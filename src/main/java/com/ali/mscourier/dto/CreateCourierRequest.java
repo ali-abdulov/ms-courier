@@ -12,6 +12,7 @@ import java.time.LocalDate;
 public class CreateCourierRequest {
 
     @NotBlank(message = "Name cannot be empty")
+    @Size(max = 255)
     private String name;
 
     @NotBlank(message = "Fin code is required")
@@ -21,7 +22,9 @@ public class CreateCourierRequest {
     @NotNull(message = "Gender is required")
     private Gender gender;
 
+    @jakarta.validation.constraints.Past
     private LocalDate dateOfBirth;
 
+    @Size(max = 255)
     private String address;
 }

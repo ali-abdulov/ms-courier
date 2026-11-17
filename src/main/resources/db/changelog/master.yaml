@@ -1,3 +1,9 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/changes/001-create-couriers-table.yaml
+      file: db/changelog/changes/vers1.yaml
+  - include:
+      file: db/changelog/changes/vers2.yaml
+  - include:
+      file: db/changelog/changes/vers3.yaml
+  - include:
+      file: db/changelog/changes/vers4.yaml

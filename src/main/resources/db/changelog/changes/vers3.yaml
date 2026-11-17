@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-add-courier-vehicle-type
+      author: ali-abdulov
+      changes:
+        - addColumn:
+            tableName: couriers
+            columns:
+              - column:
+                  name: vehicle_type
+                  type: VARCHAR(30)
