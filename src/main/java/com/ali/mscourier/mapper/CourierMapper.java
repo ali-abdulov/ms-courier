@@ -4,6 +4,7 @@ import com.ali.mscourier.dto.CourierResponseDto;
 import com.ali.mscourier.entity.Courier;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class CourierMapper {
 
@@ -12,6 +13,7 @@ public class CourierMapper {
                 .id(courier.getId())
                 .name(courier.getName())
                 .status(courier.getStatus())
+                .gender(courier.getGender())
                 .build();
     }
 }

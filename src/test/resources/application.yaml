@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:mscourier;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:db/changelog/master.yaml
+  rabbitmq:
+    listener:
+      simple:
+        auto-startup: false
+    dynamic: false
