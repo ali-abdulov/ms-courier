@@ -1,25 +1,43 @@
 package com.ali.mscourier.config;
 
 import org.springframework.amqp.core.*;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.*;
+import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import static com.ali.mscourier.constant.RabbitConstants.*;
 
 @Configuration
 public class RabbitConfiguration {
+
     @Bean
-    public Declarables courierTopology(
-            @Value("${courier.messaging.exchange:order.exchange}") String exchangeName,
-            @Value("${courier.messaging.queue:courier.state.events}") String queueName) {
-        TopicExchange exchange = new TopicExchange(exchangeName, true, false);
-        DirectExchange deadExchange = new DirectExchange(queueName + ".dlx", true, false);
-        Queue queue = QueueBuilder.durable(queueName)
-                .deadLetterExchange(deadExchange.getName()).deadLetterRoutingKey("failed").build();
-        Queue deadQueue = QueueBuilder.durable(queueName + ".dlq").build();
-        return new Declarables(exchange, deadExchange, queue, deadQueue,
-                BindingBuilder.bind(queue).to(exchange).with("order.assigned"),
-                BindingBuilder.bind(queue).to(exchange).with("order.delivered"),
-                BindingBuilder.bind(queue).to(exchange).with("ORDER_ASSIGNED"),
-                BindingBuilder.bind(queue).to(exchange).with("ORDER_DELIVERED"),
-                BindingBuilder.bind(deadQueue).to(deadExchange).with("failed"));
+    public TopicExchange orderExchange() {
+        return new TopicExchange(ORDER_EXCHANGE);
+    }
+
+    @Bean
+    public Queue assignedQueue() {
+        return new Queue(COURIER_ASSIGNED_QUEUE);
+    }
+
+    @Bean
+    public Queue deliveredQueue() {
+        return new Queue(COURIER_DELIVERED_QUEUE);
+    }
+
+    @Bean
+    public Binding bindAssigned(Queue assignedQueue, TopicExchange orderExchange) {
+        return BindingBuilder.bind(assignedQueue).to(orderExchange).with(ORDER_ASSIGNED);
+    }
+
+    @Bean
+    public Binding bindDelivered(Queue deliveredQueue, TopicExchange orderExchange) {
+        return BindingBuilder.bind(deliveredQueue).to(orderExchange).with(ORDER_DELIVERED);
+    }
+
+    @Bean
+    public MessageConverter jsonConverter() {
+        return new JacksonJsonMessageConverter();
     }
 }

@@ -1,8 +1,8 @@
 package com.ali.mscourier.enums;
 
 public enum VehicleType {
+    CAR,
     BICYCLE,
-    SCOOTER,
     MOTORCYCLE,
-    CAR
+    ON_FOOT
 }

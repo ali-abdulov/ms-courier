@@ -1,6 +1,7 @@
 package com.ali.mscourier.dto;
 
 import com.ali.mscourier.enums.Gender;
+import com.ali.mscourier.enums.VehicleType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -12,7 +13,6 @@ import java.time.LocalDate;
 public class CreateCourierRequest {
 
     @NotBlank(message = "Name cannot be empty")
-    @Size(max = 255)
     private String name;
 
     @NotBlank(message = "Fin code is required")
@@ -22,9 +22,16 @@ public class CreateCourierRequest {
     @NotNull(message = "Gender is required")
     private Gender gender;
 
-    @jakarta.validation.constraints.Past
     private LocalDate dateOfBirth;
 
-    @Size(max = 255)
     private String address;
+
+    @NotBlank(message = "Phone Number is required")
+    private String phoneNumber;
+
+    @NotBlank(message = "Email is required")
+    private String email;
+
+    @NotNull(message = "Vehicle type must be selected")
+    private VehicleType vehicleType;
 }

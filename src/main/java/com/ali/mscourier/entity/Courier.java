@@ -1,8 +1,8 @@
 package com.ali.mscourier.entity;
 
-import com.ali.mscourier.enums.VehicleType;
 import com.ali.mscourier.enums.CourierStatus;
 import com.ali.mscourier.enums.Gender;
+import com.ali.mscourier.enums.VehicleType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,26 +22,28 @@ public class Courier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(unique = true, length = 7)
+    @Column(nullable = false, unique = true, length = 7)
     private String finCode;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private Gender gender;
 
     private LocalDate birthDate;
 
+    @Column(length = 255)
     private String address;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private CourierStatus status;
 
-    @Column(unique = true, length = 100)
-    private String activeOrderId;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private VehicleType vehicleType;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -56,12 +58,4 @@ public class Courier {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "vehicle_type", length = 30)
-    private VehicleType vehicleType;
-
-    @Column(nullable = false)
-    private boolean deleted;
-
 }
