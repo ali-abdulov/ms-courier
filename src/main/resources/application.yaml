@@ -3,12 +3,27 @@ server:
 
 spring:
   application:
-    name: courier-ms
+    name: ms-courier
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/master.yaml
   datasource:
     url: jdbc:postgresql://localhost:5432/courier_db
     username: postgres
-    password:
+    password: password
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
